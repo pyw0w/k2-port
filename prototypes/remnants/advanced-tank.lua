@@ -1,0 +1,26 @@
+data:extend({
+  {
+    type = "corpse",
+    name = "k2-advanced-tank-remnants",
+    icon = "__k2-port__/graphics/icons/vehicles/advanced-tank.png",
+    icon_size = 64,
+    flags = { "placeable-neutral", "not-on-map" },
+    selection_box = { { -2, -2 }, { 2, 2 } },
+    tile_width = 4,
+    tile_height = 4,
+    selectable_in_game = false,
+    subgroup = "remnants",
+    order = "d[remnants]-a[generic]-a[small]",
+    time_before_removed = 60 * 15,
+    final_render_layer = "remnants",
+    animation = make_rotated_animation_variations_from_sheet(1, {
+      filename = "__k2-port__/graphics/remnants/advanced-tank-remnants.png",
+      line_length = 1,
+      width = 260,
+      height = 220,
+      direction_count = 1,
+      shift = util.by_pixel(6, 2),
+      scale = 0.5,
+    }),
+  },
+})

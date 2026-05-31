@@ -1,0 +1,1 @@
+-- Final fixes phase (empty for now, reserved for future compatibility patches)

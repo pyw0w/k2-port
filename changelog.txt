@@ -1,0 +1,14 @@
+---------------------------------------------------------------------------------------------------
+Version: 1.0.0
+Date: 2026-05-31
+  Features:
+    - Advanced Tank entity with 5 weapon slots (machine gun, laser cannon, railgun, impulse rifle, auxiliary cannon)
+    - Custom ammo categories: k2-railgun-shell, k2-impulse-rifle
+    - Custom fuel category: k2-vehicle-fuel (also accepts chemical fuel)
+    - Equipment grid: k2-tank-grid-2 (8x4)
+    - Full animation support (64 directions, base + turret with shadow and mask layers)
+    - Movement triggers with particle effects for all terrain types
+    - Technology unlock with 5 science packs
+    - Space Age compatibility patch
+    - English and Russian locale
+---------------------------------------------------------------------------------------------------
