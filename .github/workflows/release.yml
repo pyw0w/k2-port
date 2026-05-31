@@ -1,0 +1,73 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      prerelease:
+        description: 'Is this a pre-release?'
+        required: true
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      
+      - name: Get version from info.json
+        id: version
+        run: |
+          VERSION=$(jq -r '.version' info.json)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Mod version: $VERSION"
+      
+      - name: Create mod archive
+        run: |
+          MOD_NAME="spidertrontiers-sa"
+          VERSION="${{ steps.version.outputs.version }}"
+          ARCHIVE_NAME="${MOD_NAME}_${VERSION}.zip"
+          
+          # Create temporary directory for mod files
+          mkdir -p /tmp/${MOD_NAME}
+          
+          # Copy mod files excluding .agents and AGENTS.md
+          rsync -av \
+            --exclude='.agents/' \
+            --exclude='AGENTS.md' \
+            --exclude='.github/' \
+            --exclude='.git/' \
+            --exclude='.gitignore' \
+            --exclude='docs/' \
+            --exclude='*.md' \
+            --exclude='*.zip' \
+            . /tmp/${MOD_NAME}/
+          
+          # Create zip archive
+          cd /tmp
+          zip -r ${ARCHIVE_NAME} ${MOD_NAME}/
+          
+          # Move to workspace
+          mv ${ARCHIVE_NAME} ${GITHUB_WORKSPACE}/
+          
+          # Cleanup
+          rm -rf /tmp/${MOD_NAME}
+      
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: spidertrontiers-sa_${{ steps.version.outputs.version }}.zip
+          prerelease: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.prerelease == 'true' }}
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
