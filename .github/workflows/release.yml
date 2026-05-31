@@ -35,7 +35,10 @@ jobs:
       - name: Check if version changed
         id: changed
         run: |
-          if [ "${{ steps.current.outputs.version }}" != "${{ steps.previous.outputs.version }}" ]; then
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Manual trigger - forcing release"
+          elif [ "${{ steps.current.outputs.version }}" != "${{ steps.previous.outputs.version }}" ]; then
             echo "changed=true" >> $GITHUB_OUTPUT
             echo "Version changed: ${{ steps.previous.outputs.version }} -> ${{ steps.current.outputs.version }}"
           else
