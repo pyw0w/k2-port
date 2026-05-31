@@ -1,73 +1,99 @@
-name: Release
+name: Auto Release
 
 on:
   push:
-    tags:
-      - 'v*'
+    branches: [main]
+    paths: [info.json]
   workflow_dispatch:
-    inputs:
-      prerelease:
-        description: 'Is this a pre-release?'
-        required: true
-        default: 'false'
-        type: choice
-        options:
-          - 'false'
-          - 'true'
 
 jobs:
-  release:
+  check-and-release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    
+
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
-      - name: Get version from info.json
-        id: version
+        with:
+          fetch-depth: 2
+
+      - name: Get current version
+        id: current
         run: |
           VERSION=$(jq -r '.version' info.json)
           echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Mod version: $VERSION"
-      
-      - name: Create mod archive
+          echo "Current version: $VERSION"
+
+      - name: Get previous version
+        id: previous
         run: |
-          MOD_NAME="k2"
-          VERSION="${{ steps.version.outputs.version }}"
+          VERSION=$(git show HEAD~1:info.json 2>/dev/null | jq -r '.version' || echo "none")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Previous version: $VERSION"
+
+      - name: Check if version changed
+        id: changed
+        run: |
+          if [ "${{ steps.current.outputs.version }}" != "${{ steps.previous.outputs.version }}" ]; then
+            echo "changed=true" >> $GITHUB_OUTPUT
+            echo "Version changed: ${{ steps.previous.outputs.version }} -> ${{ steps.current.outputs.version }}"
+          else
+            echo "changed=false" >> $GITHUB_OUTPUT
+            echo "Version unchanged"
+          fi
+
+      - name: Check if tag exists
+        id: tag_exists
+        if: steps.changed.outputs.changed == 'true'
+        run: |
+          if git rev-parse "v${{ steps.current.outputs.version }}" >/dev/null 2>&1; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create mod archive
+        if: steps.changed.outputs.changed == 'true' && steps.tag_exists.outputs.exists == 'false'
+        run: |
+          MOD_NAME="k2-port"
+          VERSION="${{ steps.current.outputs.version }}"
           ARCHIVE_NAME="${MOD_NAME}_${VERSION}.zip"
-          
-          # Create temporary directory for mod files
+
           mkdir -p /tmp/${MOD_NAME}
-          
-          # Copy mod files excluding .agents and AGENTS.md
+
           rsync -av \
             --exclude='.agents/' \
-            --exclude='AGENTS.md' \
             --exclude='.github/' \
             --exclude='.git/' \
             --exclude='.gitignore' \
             --exclude='docs/' \
             --exclude='*.md' \
             --exclude='*.zip' \
+            --exclude='_upstream/' \
             . /tmp/${MOD_NAME}/
-          
-          # Create zip archive
+
           cd /tmp
           zip -r ${ARCHIVE_NAME} ${MOD_NAME}/
-          
-          # Move to workspace
           mv ${ARCHIVE_NAME} ${GITHUB_WORKSPACE}/
-          
-          # Cleanup
           rm -rf /tmp/${MOD_NAME}
-      
-      - name: Create Release
+
+      - name: Create tag and release
+        if: steps.changed.outputs.changed == 'true' && steps.tag_exists.outputs.exists == 'false'
+        run: |
+          VERSION="${{ steps.current.outputs.version }}"
+          git tag "v${VERSION}"
+          git push origin "v${VERSION}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create GitHub Release
+        if: steps.changed.outputs.changed == 'true' && steps.tag_exists.outputs.exists == 'false'
         uses: softprops/action-gh-release@v2
         with:
-          files: k2_${{ steps.version.outputs.version }}.zip
-          prerelease: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.prerelease == 'true' }}
+          tag_name: v${{ steps.current.outputs.version }}
+          name: v${{ steps.current.outputs.version }}
+          files: k2-port_${{ steps.current.outputs.version }}.zip
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
