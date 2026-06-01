@@ -1,4 +1,18 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.1
+Date: 2026-01-06
+  Features:
+    - Added 4 ammo items: Railgun Shell, Explosive Railgun Shell, Antimatter Railgun Shell, Impulse Rifle Ammo.
+    - Added custom projectiles with unique visuals for each ammo type.
+    - Added custom explosion effects for antimatter and impulse weapons.
+    - Added new k2-explosion damage type.
+    - Added recipes and technology unlocks for all ammo types.
+    - Space Age compatibility: upgraded recipes using tungsten-plate, quantum-processor, superconductor.
+  Bugfixes:
+    - Fixed tank guns not firing (added missing entity properties: is_military_target, deliver_category, allow_remote_driving, trash_inventory_size, tank_driving).
+  Locale:
+    - Added Russian and English names and descriptions for all ammo items.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.0
 Date: 2026-05-31
   Features:

@@ -21,6 +21,22 @@ data:extend({
         type = "unlock-recipe",
         recipe = "k2-advanced-tank",
       },
+      {
+        type = "unlock-recipe",
+        recipe = "k2-basic-railgun-shell",
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "k2-explosive-railgun-shell",
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "k2-antimatter-railgun-shell",
+      },
+      {
+        type = "unlock-recipe",
+        recipe = "k2-impulse-rifle-ammo",
+      },
     },
   },
 })
