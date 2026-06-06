@@ -1,3 +1,5 @@
+-- SPDX-License-Identifier: LGPL-3.0-or-later
+-- Copyright (C) 2026 PyW0W
 -- Compatibility patches that need to run in data-updates phase
 require("prototypes.compatibility.space-age")
 

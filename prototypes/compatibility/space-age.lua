@@ -1,3 +1,5 @@
+-- SPDX-License-Identifier: LGPL-3.0-or-later
+-- Copyright (C) 2026 PyW0W
 if not mods["space-age"] then return end
 
 -- Space Age recipe updates

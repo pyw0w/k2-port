@@ -1,3 +1,6 @@
+-- SPDX-License-Identifier: LGPL-3.0-or-later
+-- Adapted from Krastorio2: prototypes/items/ammo.lua (kr-railgun-shell, kr-impulse-rifle items)
+-- Original: https://codeberg.org/raiguard/Krastorio2
 data:extend({
   {
     type = "ammo",

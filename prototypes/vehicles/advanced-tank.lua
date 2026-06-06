@@ -1,3 +1,6 @@
+-- SPDX-License-Identifier: LGPL-3.0-or-later
+-- Gun stats adapted from Krastorio2: prototypes/vehicles/advanced-tank.lua
+-- Original: https://codeberg.org/raiguard/Krastorio2
 local movement_triggers = require("advanced-tank-movement-triggers")
 
 -- Ammo categories defined in prototypes/categories/ammo.lua

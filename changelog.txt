@@ -1,4 +1,9 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.3
+Date: 2026-01-06
+  Locale:
+    - LGPL-3.0-or-later compliance: added LICENSE file, README.md with attribution, SPDX headers to all Lua files, updated info.json description.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.2
 Date: 2026-01-06
   Bugfixes:
