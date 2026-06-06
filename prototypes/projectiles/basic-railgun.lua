@@ -4,6 +4,8 @@ data:extend({
     name = "k2-basic-railgun-projectile",
     flags = { "not-on-map" },
     hidden = true,
+    collision_box = {{-0.3, -1.1}, {0.3, 1.1}},
+    direction_only = true,
     acceleration = 0.25,
     piercing_damage = 500,
     action = {

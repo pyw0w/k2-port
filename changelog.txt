@@ -1,4 +1,13 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.2
+Date: 2026-01-06
+  Bugfixes:
+    - Fixed projectiles not hitting entities (added collision_box and direction_only to all railgun projectiles).
+    - Fixed duplicate item-name section in locale files.
+  Features:
+    - Added tech scaling bonuses: k2-railgun-shell damage/speed added to physical-projectile-damage and weapon-shooting-speed tiers.
+    - Added tech scaling bonuses: k2-impulse-rifle damage/speed added to laser-weapons-damage and laser-shooting-speed tiers.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.1
 Date: 2026-01-06
   Features:
