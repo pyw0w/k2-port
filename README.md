@@ -39,6 +39,6 @@ Additional compatibility code, tech bonus logic, and localization for this mod w
 
 ## License
 
-This mod is licensed under the GNU Lesser General Public License v3.0 or later (LGPL-3.0-or-later).
+This mod is licensed under the GNU Lesser General Public License v3.0.
 
 See the LICENSE file for the full license text.
