@@ -1,4 +1,10 @@
 ---------------------------------------------------------------------------------------------------
+Version: 1.0.4
+Date: 2026-01-06
+  Features:
+    - Increased railgun shell damage by 10% (configurable).
+    - Added mod setting "k2-railgun-damage-multiplier" to manually adjust railgun shell damage.
+---------------------------------------------------------------------------------------------------
 Version: 1.0.3
 Date: 2026-01-06
   Locale:

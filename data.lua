@@ -3,6 +3,9 @@
 -- Load damage types
 require("prototypes.damage-types")
 
+-- Load settings
+require("settings")
+
 -- Load categories
 require("prototypes.categories.ammo")
 require("prototypes.categories.fuel")
