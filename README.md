@@ -1,6 +1,6 @@
 # K2 (Port) — Advanced Tank
 
-A standalone Factorio 2.0 mod that adds the Advanced Tank from Krastorio2, with Space Age compatibility.
+A standalone Factorio 2.1 mod that adds the Advanced Tank from Krastorio2, with Space Age compatibility.
 
 ## Features
 

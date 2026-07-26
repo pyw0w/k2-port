@@ -43,7 +43,7 @@ data:extend({
     selection_box = { { -1.8, -2.2 }, { 1.8, 2.2 } },
     drawing_box = { { -3, -3.5 }, { 3, 3 } },
     effectivity = 0.8,
-    braking_power = "2000kW",
+    braking_force = (2000 * 1000) / 60,
     energy_source = {
       type = "burner",
       fuel_categories = { "k2-vehicle-fuel", "chemical" },
@@ -62,7 +62,7 @@ data:extend({
     },
     consumption = "1500kW",
     terrain_friction_modifier = 0.2,
-    friction = 0.002,
+    friction_force = 0.002,
     light = {
       {
         type = "oriented",

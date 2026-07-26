@@ -1,12 +1,12 @@
 {
   "name": "k2-port",
-  "version": "1.0.4",
+  "version": "1.1.0",
   "title": "K2 (Port)",
   "author": "PyW0W",
   "contact": "",
   "homepage": "",
   "description": "Adds the Advanced Tank from Krastorio2 as a standalone mod with Space Age compatibility. Contains code and assets adapted from Krastorio2 (LGPL-3.0-or-later) and Krastorio2Assets (LGPL-3.0-or-later) by raiguard.",
-  "factorio_version": "2.0",
+  "factorio_version": "2.1",
   "dependencies": [
     "base >= 2.0.0"
   ]
